@@ -37,10 +37,10 @@
   }
 }
 
-#tags {
+/* #tags {
   width: 40%;
   margin: 50px auto;
-}
+} */
 
 #tags .ReactTags__tags {
   position: relative;
@@ -143,6 +143,41 @@
   border-color: #000000;
 }
 
-/* #tags input:before {
-  border: none;
-} */
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border: 1px black solid;
+  width: min-content;
+  margin: auto;
+}
+
+.list-item {
+  padding: 0.3rem;
+  white-space: nowrap;
+  cursor: pointer;
+  height: 1.5rem;
+  border: 3px black;
+}
+
+.list-item.drop-zone {
+  background-color: #ccc;
+  transition-property: height padding;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  overflow: hidden;
+}
+
+.floating {
+  position: absolute;
+}
+
+.list-item.drop-zone.hidden {
+  height: 0px;
+  padding: 0px;
+}
+
+.list-item > p {
+  margin: 0px;
+}

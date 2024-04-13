@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Slider from "@mui/material/Slider";
-import Paper from "@mui/material/Paper";
 import ".././App.css";
 import { WithContext as ReactTags } from "react-tag-input";
+
+const suggestions = [
+  { id: "1", text: "Laundry in-unit" },
+  { id: "2", text: "Doorman" },
+  { id: "3", text: "Gym" },
+];
 
 function MustHaves() {
   const [tags, setTags] = React.useState([]);
@@ -19,18 +22,20 @@ function MustHaves() {
   };
 
   return (
-    <div id="tags">
-      <ReactTags
-        tags={tags}
-        handleDelete={handleDelete}
-        handleAddition={handleAddition}
-        inputFieldPosition="bottom"
-        autocomplete
-        allowDragDrop={false}
-        placeholder="Apartment MUST Haves"
-        inline={false}
-      />
-    </div>
+    <Box display={"flex"}>
+      <p>Apartment Must Haves:</p>
+      <div id="tags">
+        <ReactTags
+          tags={tags}
+          suggestions={suggestions}
+          handleDelete={handleDelete}
+          handleAddition={handleAddition}
+          inputFieldPosition="top"
+          autocomplete
+          allowDragDrop={false}
+        />
+      </div>
+    </Box>
   );
 }
 

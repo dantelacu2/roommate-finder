@@ -1,9 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Signup from "./Components/Signup";
-import * as Realm from "realm-web";
-
-
+// import * as Realm from "realm-web";
 
 function App() {
   return (

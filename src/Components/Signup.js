@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import Slider from "@mui/material/Slider";
 import Paper from "@mui/material/Paper";
 import MustHaves from "./MustHaves";
+import ReorderableList from "./ReorderableList";
 
 function Signup() {
   return (
@@ -69,6 +70,7 @@ function Signup() {
               id="outlined-basic"
               label="Move-in Date"
               variant="outlined"
+              //   type="date"
             />
             <Slider
               aria-label="Move-in Date"
@@ -102,16 +104,16 @@ function Signup() {
           <MustHaves />
           {/* </Box> */}
         </Box>
-        <Box>
-          <h3>Roommate Preferences</h3>
-          <TextField
-            id="outlined-multiline-static"
-            label="Multiline"
-            multiline
-            rows={4}
-            defaultValue="Location / Neighborhood"
-          />
-        </Box>
+        <h3>Roommate Preferences</h3>
+        <ReorderableList />
+        {/* <Box display="flex"></Box> */}
+        <p>Other Important Notes</p>
+        <TextField
+          id="outlined-multiline-static"
+          multiline
+          rows={3}
+          label="Other"
+        />
       </Paper>
     </Box>
   );
