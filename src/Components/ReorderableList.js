@@ -66,7 +66,9 @@ function ReorderableList() {
           variant="outlined"
           onChange={(e) => setItem(e.target.value)}
         />
-        <Button onClick={handleAddition}>Add</Button>
+        <Button color="secondary" variant="contained" onClick={handleAddition}>
+          Add
+        </Button>
         <>
           {dragged !== null && (
             <div

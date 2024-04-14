@@ -1,26 +1,19 @@
 import logo from "./logo.svg";
 import "./App.css";
-import Signup from "./Components/Signup";
+import SignupPage from "./Components/SignupPage";
+import MatchesPage from "./Components/MatchesPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import * as Realm from "realm-web";
 
 function App() {
   return (
     <div className="App">
-      <Signup />
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SignupPage />} />
+          <Route path="matches" element={<MatchesPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
