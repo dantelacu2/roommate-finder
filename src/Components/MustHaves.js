@@ -9,7 +9,7 @@ const suggestions = [
   { id: "3", text: "Gym" },
 ];
 
-function MustHaves() {
+function MustHaves(props) {
   const [tags, setTags] = React.useState([]);
   // Method to delete tag from Array
   const handleDelete = (i) => {
@@ -20,6 +20,11 @@ function MustHaves() {
   const handleAddition = (tag) => {
     setTags([...tags, tag]);
   };
+
+  // Update tags at the signup form state level
+  React.useEffect(() => {
+    props.updateAnswers("tags", tags);
+  }, [tags]);
 
   return (
     <Box display={"flex"}>

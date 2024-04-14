@@ -1,11 +1,18 @@
+import React, { useState } from "react"; 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import Slider from "@mui/material/Slider";
 import Paper from "@mui/material/Paper";
 import MustHaves from "./MustHaves";
 import ReorderableList from "./ReorderableList";
 
 function Signup() {
+  const [formAnswers, setFormAnswers] = useState({});
+  const updateAnswers = (label, value) => {
+    setFormAnswers({...formAnswers, [label]: value});
+  }
+  console.log(formAnswers);
   return (
     <Box
       display="flex"
@@ -35,27 +42,30 @@ function Signup() {
           autoComplete="off"
         >
           <h3>Personal Information</h3>
-          <TextField id="outlined-basic" label="Name" variant="outlined" />
-          <TextField id="outlined-basic" label="Age" variant="outlined" />
-          <TextField id="outlined-basic" label="Career" variant="outlined" />
+          <TextField onChange={(e) => updateAnswers("name", e.currentTarget.value)} id="outlined-basic" label="Name" variant="outlined" />
+          <TextField onChange={(e) => updateAnswers("age", e.currentTarget.value)} id="outlined-basic" label="Age" variant="outlined" />
+          <TextField onChange={(e) => updateAnswers("career", e.currentTarget.value)} id="outlined-basic" label="Career" variant="outlined" />
           <TextField
+            onChange={(e) => updateAnswers("university", e.currentTarget.value)}
             id="outlined-basic"
             label="University"
             variant="outlined"
           />
-          <TextField id="outlined-basic" label="Email" variant="outlined" />
-          <TextField id="outlined-basic" label="Telephone" variant="outlined" />
+          <TextField onChange={(e) => updateAnswers("email", e.currentTarget.value)} id="outlined-basic" label="Email" variant="outlined" />
+          <TextField onChange={(e) => updateAnswers("telephone", e.currentTarget.value)} id="outlined-basic" label="Telephone" variant="outlined" />
         </Box>
         <Box>
           <h3>Rooming Preferences</h3>
           <Box display="flex">
             <TextField
               id="outlined-basic"
+              onChange={(e) => updateAnswers("location", e.currentTarget.value)}
               label="Location"
               variant="outlined"
             />
             <Slider
               aria-label="Location"
+              onChange={(e) => updateAnswers("location_slider", e.currentTarget.value)}
               defaultValue={20}
               marks={[
                 { value: 0, label: "Not important" },
@@ -68,12 +78,14 @@ function Signup() {
           <Box display="flex">
             <TextField
               id="outlined-basic"
+              onChange={(e) => updateAnswers("move_in_date", e.currentTarget.value)}
               label="Move-in Date"
               variant="outlined"
               //   type="date"
             />
             <Slider
               aria-label="Move-in Date"
+              onChange={(e) => updateAnswers("move_in_date_slider", e.currentTarget.value)}
               defaultValue={20}
               marks={[
                 { value: 0, label: "Not important" },
@@ -86,11 +98,13 @@ function Signup() {
           <Box display="flex">
             <TextField
               id="outlined-basic"
+              onChange={(e) => updateAnswers("budget_range", e.currentTarget.value)}
               label="Budget Range"
               variant="outlined"
             />
             <Slider
               aria-label="Budget Range"
+              onChange={(e) => updateAnswers("budget_range_slider", e.currentTarget.value)}
               defaultValue={20}
               marks={[
                 { value: 0, label: "Not important" },
@@ -101,7 +115,7 @@ function Signup() {
             />
           </Box>
           {/* <Box display="flex"> */}
-          <MustHaves />
+          <MustHaves updateAnswers={updateAnswers} />
           {/* </Box> */}
         </Box>
         <h3>Roommate Preferences</h3>
@@ -114,6 +128,9 @@ function Signup() {
           rows={3}
           label="Other"
         />
+        <Box display="flex" sx={{ justifyContent: 'right' }}>
+          <Button color="secondary" variant="outlined">Submit</Button>
+        </Box>
       </Paper>
     </Box>
   );
