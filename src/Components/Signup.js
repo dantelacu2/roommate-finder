@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React from "react"; 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -6,13 +6,18 @@ import Slider from "@mui/material/Slider";
 import Paper from "@mui/material/Paper";
 import MustHaves from "./MustHaves";
 import ReorderableList from "./ReorderableList";
+import { createProfile } from "../Axios";
 
 function Signup() {
-  const [formAnswers, setFormAnswers] = useState({});
+  const [formAnswers, setFormAnswers] = React.useState({});
   const updateAnswers = (label, value) => {
     setFormAnswers({...formAnswers, [label]: value});
   }
-  console.log(formAnswers);
+  const submitAnswers = () => {
+    console.log("submitting", formAnswers);
+    createProfile(formAnswers);
+  }
+
   return (
     <Box
       display="flex"
@@ -129,7 +134,7 @@ function Signup() {
           label="Other"
         />
         <Box display="flex" sx={{ justifyContent: 'right' }}>
-          <Button color="secondary" variant="outlined">Submit</Button>
+          <Button onClick={() => submitAnswers()} color="secondary" variant="outlined">Submit</Button>
         </Box>
       </Paper>
     </Box>
