@@ -2,6 +2,9 @@ import React from "react";
 import Box from "@mui/material/Box";
 import ".././App.css";
 import { WithContext as ReactTags } from "react-tag-input";
+import Tooltip from "@mui/material/Tooltip";
+import Button from "@mui/material/Button";
+import HelpIcon from "@mui/icons-material/Help";
 
 const suggestions = [
   { id: "1", text: "Laundry in-unit" },
@@ -26,9 +29,16 @@ function MustHaves(props) {
     props.updateAnswers("tags", tags);
   }, [tags]);
 
+  const tooltipText = "Examples: laundry in-unit, doorman, etc.";
+
   return (
     <Box display={"flex"}>
       <p>Apartment Must Haves:</p>
+      <Tooltip title={tooltipText}>
+        <Button sx={{ m: 1 }}>
+          <HelpIcon sx={{ color: "black" }} />
+        </Button>
+      </Tooltip>
       <div id="tags">
         <ReactTags
           tags={tags}

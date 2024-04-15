@@ -8,6 +8,11 @@ import MustHaves from "./MustHaves";
 import ReorderableList from "./ReorderableList";
 import { createProfile } from "../Axios";
 import { Link } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
+import HelpIcon from "@mui/icons-material/Help";
+import Stack from "@mui/material/Stack";
+
+const tooltipText = "Examples: clean, night owl, no parties, etc.";
 
 function SignupPage() {
   const [formAnswers, setFormAnswers] = React.useState({});
@@ -166,7 +171,16 @@ function SignupPage() {
             </Box>
             <MustHaves updateAnswers={updateAnswers} />
           </Box>
-          <h3>Roommate Preferences</h3>
+          <Box display={"flex"}>
+            <Stack direction="row" margin="auto">
+              <h3>Roommate Preferences</h3>
+              <Tooltip title={tooltipText}>
+                <Button sx={{ m: 1 }}>
+                  <HelpIcon sx={{ color: "black" }} />
+                </Button>
+              </Tooltip>
+            </Stack>
+          </Box>
           <ReorderableList />
           <p>Other Important Notes</p>
           <TextField
