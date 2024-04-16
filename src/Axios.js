@@ -12,3 +12,13 @@ export async function createProfile(profileData) {
         throw error;
     }
 }
+
+export async function createMatches(id) {
+    try {
+        const response = await axios.post(baseURL + '/generate-matches', { id });
+        return response.data;
+    } catch (error) {
+        console.error('Error occurred:', error);
+        throw error;
+    }
+}

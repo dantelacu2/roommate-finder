@@ -6,7 +6,7 @@ import Slider from "@mui/material/Slider";
 import Paper from "@mui/material/Paper";
 import MustHaves from "./MustHaves";
 import ReorderableList from "./ReorderableList";
-import { createProfile } from "../Axios";
+import { createProfile, createMatches } from "../Axios";
 import { Link } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import HelpIcon from "@mui/icons-material/Help";
@@ -22,7 +22,9 @@ function SignupPage() {
     setFormAnswers({ ...formAnswers, [label]: value });
   };
   const submitAnswers = () => {
-    createProfile(formAnswers);
+    createProfile(formAnswers).then((doc) => {
+      createMatches(doc?.insertedDoc?.insertedId?.toString());
+    });
     setIsSubmitted(true);
   };
 
