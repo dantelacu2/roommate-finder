@@ -87,7 +87,8 @@
 
 #tags .ReactTags__selected span.ReactTags__tag {
   border: 1px solid #ddd;
-  background: #9c27b0;
+  /* background: #9c27b0; */
+  background: #1565c0;
   color: white;
   font-size: 12px;
   display: flex;
@@ -139,7 +140,8 @@
 }
 
 #tags input {
-  background-color: #d397f8;
+  /* background-color: #d397f8; */
+  /* background-color: #1565c0; */
   border-color: #000000;
 }
 
@@ -248,7 +250,8 @@
   border: none;
   color: #fff;
   font-size: 18px;
-  background-color: rgb(156, 39, 176);
+  /* background-color: rgb(156, 39, 176); */
+  background-color: #1565c0;
   transition: 200ms;
   margin: 10px;
   font-weight: bolder;

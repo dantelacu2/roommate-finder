@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import ".././App.css";
 import reorderList from "./reorderList.ts";
-import { TextField, Button } from "@mui/material";
+import { Button } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 function ReorderableList() {
   const [items, setItems] = useState([]);
@@ -55,21 +59,43 @@ function ReorderableList() {
 
   return (
     <Box>
-      <p>
-        Type a Roomate Preference and then drag to order them based on
-        importance:
+      <p style={{ fontWeight: "bold" }}>
+        Choose your roommate preferences from the dropdown and add them to your
+        list of preferences. Drag and drop the elements in the list to reorder
+        based on preference.
       </p>
-      <Box display="flex">
-        <TextField
+      <Box display="flex" justifyContent={"space-evenly"} alignItems={"center"}>
+        <Box display="flex">
+          {/* <TextField
           id="outlined-basic"
           label="Roommate Preference"
           variant="outlined"
           onChange={(e) => setItem(e.target.value)}
-        />
-        <Button color="secondary" variant="contained" onClick={handleAddition}>
-          Add
-        </Button>
-        <>
+        /> */}
+          <FormControl sx={{ m: 1, minWidth: 220 }}>
+            <InputLabel id="demo-simple-select-label">
+              Roommate Preference
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={item}
+              label="Roommate Preference"
+              onChange={(e) => setItem(e.target.value)}
+            >
+              <MenuItem value={"Clean"}>Clean</MenuItem>
+              <MenuItem value={"Night Owl"}>Night Owl</MenuItem>
+              <MenuItem value={"Early Riser"}>Early Riser</MenuItem>
+              <MenuItem value={"No parties"}>Clean</MenuItem>
+              <MenuItem value={"Willing to host parties"}>Night Owl</MenuItem>
+            </Select>
+          </FormControl>
+          <Button variant="contained" onClick={handleAddition}>
+            Add
+          </Button>
+        </Box>
+        <Box>
+          {items.length !== 0 && <p>Most Important</p>}
           {dragged !== null && (
             <div
               className="floating list-item"
@@ -101,7 +127,9 @@ function ReorderableList() {
                         setClosestDropZone(i);
                       }}
                     >
-                      <p>{v}</p>
+                      <p>
+                        {i + 1}. {v}
+                      </p>
                     </div>
 
                     <div
@@ -124,7 +152,8 @@ function ReorderableList() {
               </>
             ))}
           </div>
-        </>
+          {items.length !== 0 && <p>Least Important</p>}
+        </Box>
       </Box>
     </Box>
   );

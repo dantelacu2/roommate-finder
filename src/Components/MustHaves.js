@@ -1,54 +1,89 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import ".././App.css";
-import { WithContext as ReactTags } from "react-tag-input";
-import Tooltip from "@mui/material/Tooltip";
-import Button from "@mui/material/Button";
-import HelpIcon from "@mui/icons-material/Help";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import ListItemText from "@mui/material/ListItemText";
+import Select from "@mui/material/Select";
+import Checkbox from "@mui/material/Checkbox";
+import Chip from "@mui/material/Chip";
 
-const suggestions = [
-  { id: "1", text: "Laundry in-unit" },
-  { id: "2", text: "Doorman" },
-  { id: "3", text: "Gym" },
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const options = [
+  "Laundry in-unit",
+  "Doorman",
+  "Gym",
+  "Dishwasher",
+  "Window in room",
+  "Own bathroom",
+  "Air conditioning",
 ];
 
 function MustHaves(props) {
-  const [tags, setTags] = React.useState([]);
-  // Method to delete tag from Array
-  const handleDelete = (i) => {
-    setTags(tags.filter((tag, index) => index !== i));
-  };
-
-  // Method to Add tag into Array
-  const handleAddition = (tag) => {
-    setTags([...tags, tag]);
-  };
-
-  // Update tags at the signup form state level
+  const [mustHaves, setMustHaves] = React.useState([]);
+  //Update tags at the signup form state level
   React.useEffect(() => {
-    props.updateAnswers("tags", tags);
-  }, [tags]);
+    props.updateAnswers("tags", mustHaves);
+  }, [mustHaves]);
 
-  const tooltipText = "Examples: laundry in-unit, doorman, etc.";
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setMustHaves(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
 
   return (
-    <Box display={"flex"}>
-      <p>Apartment Must Haves:</p>
-      <Tooltip title={tooltipText}>
-        <Button sx={{ m: 1 }}>
-          <HelpIcon sx={{ color: "black" }} />
-        </Button>
-      </Tooltip>
-      <div id="tags">
-        <ReactTags
-          tags={tags}
-          suggestions={suggestions}
-          handleDelete={handleDelete}
-          handleAddition={handleAddition}
-          inputFieldPosition="top"
-          autocomplete
-          allowDragDrop={false}
-        />
+    <Box display="flex" justifyContent="space-evenly">
+      <Box>
+        <p style={{ fontWeight: "bold" }}>Apartment Must Haves:</p>
+        <p>
+          Indicate what specific elements your apartment must have. Select as
+          many as you would like.
+        </p>
+      </Box>
+      <div>
+        <FormControl sx={{ m: 1, width: 300 }}>
+          <InputLabel id="demo-multiple-checkbox-label">Must Haves</InputLabel>
+          <Select
+            labelId="demo-multiple-checkbox-label"
+            id="demo-multiple-checkbox"
+            multiple
+            value={mustHaves}
+            onChange={handleChange}
+            input={<OutlinedInput label="Tag" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {options.map((name) => (
+              <MenuItem key={name} value={name}>
+                <Checkbox checked={mustHaves.indexOf(name) > -1} />
+                <ListItemText primary={name} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     </Box>
   );

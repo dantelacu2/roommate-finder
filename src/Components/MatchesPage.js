@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import ".././App.css";
 import TinderCard from "react-tinder-card";
 import Paper from "@mui/material/Paper";
-import Slider from "@mui/material/Slider";
+import { Link } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import Popover from "@mui/material/Popover";
 import { Button } from "@mui/material";
@@ -14,6 +14,9 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
+import Rating from "@mui/material/Rating";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
+import { styled } from "@mui/material/styles";
 
 const db = [
   {
@@ -37,6 +40,16 @@ const db = [
     url: "./img/dinesh.jpg",
   },
 ];
+const StyledRating = styled(Rating)({
+  "& .MuiRating-iconFilled": {
+    // color: "#FFFF00",
+    color: "#ff6d75",
+  },
+  "& .MuiRating-iconHover": {
+    // color: "#FFFF00",
+    color: "#ff3d47",
+  },
+});
 
 const rows = ["No smoking", "Night owl", "Very clean"];
 
@@ -123,12 +136,55 @@ function MatchesPage() {
             marginTop: "50px",
             marginBottom: "50px",
             padding: "20px",
-            backgroundColor: "#D397F8",
+            // backgroundColor: "#D397F8",
+            backgroundColor: "#ADD8E6",
           },
         }}
       >
         <Paper elevation={10}>
-          <h1>Your Matches!</h1>
+          <Box
+            display="flex"
+            justifyContent={"space-between"}
+            textAlign={"center"}
+            marginTop="25px"
+          >
+            <Button variant="contained" size="large">
+              Edit Your Profile
+            </Button>
+
+            <Button variant="contained" size="large">
+              <Link
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                }}
+                to="/prev"
+              >
+                View Previous Matches
+              </Link>
+            </Button>
+          </Box>
+          <h1>Potential Matches!</h1>
+          <div className="buttons">
+            <button
+              style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
+              onClick={() => swipe("left")}
+            >
+              Swipe left to reject!
+            </button>
+            <button
+              style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
+              onClick={() => goBack()}
+            >
+              Undo swipe!
+            </button>
+            <button
+              style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
+              onClick={() => swipe("right")}
+            >
+              Swipe right to match!
+            </button>
+          </div>
           <div className="cardContainer">
             {db.map((character, index) => (
               <TinderCard
@@ -138,45 +194,75 @@ function MatchesPage() {
                 onSwipe={(dir) => swiped(dir, character.name, index)}
                 onCardLeftScreen={() => outOfFrame(character.name, index)}
               >
-                <div
-                  // style={{ backgroundImage: "url(" + character.url + ")" }}
-                  className="card"
-                >
+                <div className="card">
                   <h1>{character.name}</h1>
                   <h4>Rooming Preferences:</h4>
-                  <p>Location: Chelsea</p>
-                  <Slider
-                    aria-label="Location"
-                    defaultValue={20}
-                    marks={[
-                      { value: 0, label: "Not important" },
-                      { value: 100, label: "Need" },
-                    ]}
-                    color="secondary"
-                    sx={{ width: "70%" }}
-                  />
                   <p>Move-in Date: August 2024</p>
-                  <Slider
-                    aria-label="Location"
-                    defaultValue={95}
-                    marks={[
-                      { value: 0, label: "Not important" },
-                      { value: 100, label: "Need" },
-                    ]}
-                    color="secondary"
-                    sx={{ width: "70%" }}
+                  <StyledRating
+                    name="simple-controlled"
+                    icon={<PriorityHighIcon fontSize="inherit" />}
+                    defaultValue={2}
+                    getLabelText={(value) =>
+                      `${value} Heart${value !== 1 ? "s" : ""}`
+                    }
+                    emptyIcon={<PriorityHighIcon fontSize="inherit" />}
+                    size="large"
+                    // value="value"
+                    readOnly
+                  />
+                  <p>Lease Length</p>
+                  <StyledRating
+                    name="simple-controlled"
+                    icon={<PriorityHighIcon fontSize="inherit" />}
+                    defaultValue={2}
+                    getLabelText={(value) =>
+                      `${value} Heart${value !== 1 ? "s" : ""}`
+                    }
+                    emptyIcon={<PriorityHighIcon fontSize="inherit" />}
+                    size="large"
+                    // value="value"
+                    readOnly
                   />
                   <p>Budget Range: $2000-$2,500</p>
-                  <Slider
-                    aria-label="Location"
-                    defaultValue={60}
-                    marks={[
-                      { value: 0, label: "Not important" },
-                      { value: 100, label: "Need" },
-                    ]}
-                    color="secondary"
-                    sx={{ width: "70%" }}
+                  <StyledRating
+                    name="simple-controlled"
+                    icon={<PriorityHighIcon fontSize="inherit" />}
+                    defaultValue={2}
+                    getLabelText={(value) =>
+                      `${value} Heart${value !== 1 ? "s" : ""}`
+                    }
+                    emptyIcon={<PriorityHighIcon fontSize="inherit" />}
+                    size="large"
+                    // value="value"
+                    readOnly
                   />
+                  <p>City: New York City</p>
+                  <StyledRating
+                    name="simple-controlled"
+                    icon={<PriorityHighIcon fontSize="inherit" />}
+                    defaultValue={2}
+                    getLabelText={(value) =>
+                      `${value} Heart${value !== 1 ? "s" : ""}`
+                    }
+                    emptyIcon={<PriorityHighIcon fontSize="inherit" />}
+                    size="large"
+                    // value="value"
+                    readOnly
+                  />
+                  <p>Neighborhoods: Chelsea, SOHO, NOHO</p>
+                  <StyledRating
+                    name="simple-controlled"
+                    icon={<PriorityHighIcon fontSize="inherit" />}
+                    defaultValue={2}
+                    getLabelText={(value) =>
+                      `${value} Heart${value !== 1 ? "s" : ""}`
+                    }
+                    emptyIcon={<PriorityHighIcon fontSize="inherit" />}
+                    size="large"
+                    // value="value"
+                    readOnly
+                  />
+
                   <h4>Apartment Must Haves:</h4>
                   <Chip label="Laundry in-unit" variant="outlined" />
                   <Chip label="Doorman" variant="outlined" />
@@ -203,7 +289,7 @@ function MatchesPage() {
                     </Table>
                   </TableContainer>
                   <Button
-                    color="secondary"
+                    // color="secondary"
                     variant="outlined"
                     onClick={handleClick}
                   >
@@ -227,26 +313,6 @@ function MatchesPage() {
                 </div>
               </TinderCard>
             ))}
-          </div>
-          <div className="buttons">
-            <button
-              style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-              onClick={() => swipe("left")}
-            >
-              Swipe left to reject!
-            </button>
-            <button
-              style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
-              onClick={() => goBack()}
-            >
-              Undo swipe!
-            </button>
-            <button
-              style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-              onClick={() => swipe("right")}
-            >
-              Swipe right to match!
-            </button>
           </div>
         </Paper>
       </Box>
