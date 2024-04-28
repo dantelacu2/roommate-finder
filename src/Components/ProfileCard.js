@@ -29,14 +29,24 @@ function ProfileCard() {
         <p>Instagram: ksiegel</p>
         <p>Phone number:</p>
       </Box>
-      <Button
-        variant="contaned"
-        fullWith
-        color="primary"
-        sx={{ backgroundColor: "#1976d2", color: "white", mb: 2 }}
-      >
-        View Full Profile
-      </Button>
+      <Box sx={{ m: 2 }}>
+        <Button
+          variant="contaned"
+          fullWith
+          color="primary"
+          sx={{ backgroundColor: "#1976d2", color: "white", m: 1 }}
+        >
+          View Full Profile
+        </Button>
+        <Button
+          variant="contaned"
+          fullWith
+          color="primary"
+          sx={{ backgroundColor: "orange", color: "white", m: 1 }}
+        >
+          Rate Match
+        </Button>
+      </Box>
     </Card>
   );
 }
