@@ -22,3 +22,13 @@ export async function createMatches(id) {
         throw error;
     }
 }
+
+export async function getMatches(id) {
+    try {
+        const response = await axios.post(baseURL + '/get-matches', { id });
+        return response.data;
+    } catch (error) {
+        console.error('Error occurred:', error);
+        throw error;
+    }
+}

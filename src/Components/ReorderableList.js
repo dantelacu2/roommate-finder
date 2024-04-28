@@ -8,13 +8,17 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-function ReorderableList() {
+function ReorderableList(props) {
   const [items, setItems] = useState([]);
   const [item, setItem] = useState("");
 
   const [dragged, setDragged] = useState(null);
   const [mouse, setMouse] = useState([0, 0]);
   const [closestDropZone, setClosestDropZone] = useState(0);
+
+  useEffect(() => {
+    props.updateAnswers("roommates_preferences", items);
+  }, [items]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -83,11 +87,11 @@ function ReorderableList() {
               label="Roommate Preference"
               onChange={(e) => setItem(e.target.value)}
             >
-              <MenuItem value={"Clean"}>Clean</MenuItem>
-              <MenuItem value={"Night Owl"}>Night Owl</MenuItem>
-              <MenuItem value={"Early Riser"}>Early Riser</MenuItem>
-              <MenuItem value={"No parties"}>Clean</MenuItem>
-              <MenuItem value={"Willing to host parties"}>Night Owl</MenuItem>
+              <MenuItem value={"clean"}>Clean</MenuItem>
+              <MenuItem value={"night-owl"}>Night Owl</MenuItem>
+              <MenuItem value={"early-riser"}>Early Riser</MenuItem>
+              <MenuItem value={"no-parties"}>No Parties</MenuItem>
+              <MenuItem value={"willing-to-host-parties"}>Willing to host parties</MenuItem>
             </Select>
           </FormControl>
           <Button variant="contained" onClick={handleAddition}>

@@ -1,9 +1,10 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import ".././App.css";
 import TinderCard from "react-tinder-card";
 import Paper from "@mui/material/Paper";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { getMatches } from "../Axios";
 import Chip from "@mui/material/Chip";
 import Popover from "@mui/material/Popover";
 import { Button } from "@mui/material";
@@ -55,6 +56,17 @@ const rows = ["No smoking", "Night owl", "Very clean"];
 
 function MatchesPage() {
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
+  const [matches, setMatches] = useState([]);
+  const { profileId } = useParams();
+
+  useEffect(() => {
+    getMatches(profileId).then((resp) => {
+      if (Array.isArray(resp?.doc?.matches)) {
+        setMatches(resp?.doc?.matches);
+      }
+    });
+  }, [profileId]);
+
   // const [lastDirection, setLastDirection] = useState();
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex);
@@ -186,7 +198,7 @@ function MatchesPage() {
             </button>
           </div>
           <div className="cardContainer">
-            {db.map((character, index) => (
+            {matches.map((character, index) => (
               <TinderCard
                 ref={childRefs[index]}
                 className="swipe"
@@ -196,73 +208,78 @@ function MatchesPage() {
               >
                 <div className="card">
                   <h1>{character.name}</h1>
+                  {character.city && (
+                    <p>Location: {character.city}</p>
+                  )}
                   <h4>Rooming Preferences:</h4>
-                  <p>Move-in Date: August 2024</p>
-                  <StyledRating
-                    name="simple-controlled"
-                    icon={<PriorityHighIcon fontSize="inherit" />}
-                    defaultValue={2}
-                    getLabelText={(value) =>
-                      `${value} Heart${value !== 1 ? "s" : ""}`
-                    }
-                    emptyIcon={<PriorityHighIcon fontSize="inherit" />}
-                    size="large"
-                    // value="value"
-                    readOnly
-                  />
-                  <p>Lease Length</p>
-                  <StyledRating
-                    name="simple-controlled"
-                    icon={<PriorityHighIcon fontSize="inherit" />}
-                    defaultValue={2}
-                    getLabelText={(value) =>
-                      `${value} Heart${value !== 1 ? "s" : ""}`
-                    }
-                    emptyIcon={<PriorityHighIcon fontSize="inherit" />}
-                    size="large"
-                    // value="value"
-                    readOnly
-                  />
-                  <p>Budget Range: $2000-$2,500</p>
-                  <StyledRating
-                    name="simple-controlled"
-                    icon={<PriorityHighIcon fontSize="inherit" />}
-                    defaultValue={2}
-                    getLabelText={(value) =>
-                      `${value} Heart${value !== 1 ? "s" : ""}`
-                    }
-                    emptyIcon={<PriorityHighIcon fontSize="inherit" />}
-                    size="large"
-                    // value="value"
-                    readOnly
-                  />
-                  <p>City: New York City</p>
-                  <StyledRating
-                    name="simple-controlled"
-                    icon={<PriorityHighIcon fontSize="inherit" />}
-                    defaultValue={2}
-                    getLabelText={(value) =>
-                      `${value} Heart${value !== 1 ? "s" : ""}`
-                    }
-                    emptyIcon={<PriorityHighIcon fontSize="inherit" />}
-                    size="large"
-                    // value="value"
-                    readOnly
-                  />
-                  <p>Neighborhoods: Chelsea, SOHO, NOHO</p>
-                  <StyledRating
-                    name="simple-controlled"
-                    icon={<PriorityHighIcon fontSize="inherit" />}
-                    defaultValue={2}
-                    getLabelText={(value) =>
-                      `${value} Heart${value !== 1 ? "s" : ""}`
-                    }
-                    emptyIcon={<PriorityHighIcon fontSize="inherit" />}
-                    size="large"
-                    // value="value"
-                    readOnly
-                  />
-
+                  {character.move_in_date && (
+                    <>
+                      <p>Move-in Date: {new Date(character.move_in_date).getMonth()}/{new Date(character.move_in_date).getFullYear()}</p>
+                      <StyledRating
+                        name="simple-controlled"
+                        icon={<PriorityHighIcon fontSize="inherit" />}
+                        defaultValue={2}
+                        getLabelText={(value) =>
+                          `${value} Heart${value !== 1 ? "s" : ""}`
+                        }
+                        emptyIcon={<PriorityHighIcon fontSize="inherit" />}
+                        size="large"
+                        value={character.move_in_date_importance ? character.move_in_date_importance : 2}
+                        readOnly
+                      />
+                    </>
+                  )}
+                  {character.lease_length && (
+                    <>
+                      <p>Lease Length: {character.lease_length.toString()}</p>
+                        <StyledRating
+                          name="simple-controlled"
+                          icon={<PriorityHighIcon fontSize="inherit" />}
+                          defaultValue={2}
+                          getLabelText={(value) =>
+                            `${value} Heart${value !== 1 ? "s" : ""}`
+                          }
+                          emptyIcon={<PriorityHighIcon fontSize="inherit" />}
+                          size="large"
+                          value={character.lease_length_importance ? character.lease_length_importance : 2}
+                          readOnly
+                        />
+                    </>
+                  )}
+                  {character.budget && (
+                    <>
+                      <p>Budget: ${character.budget.toString()}</p>
+                      <StyledRating
+                        name="simple-controlled"
+                        icon={<PriorityHighIcon fontSize="inherit" />}
+                        defaultValue={2}
+                        getLabelText={(value) =>
+                          `${value} Heart${value !== 1 ? "s" : ""}`
+                        }
+                        emptyIcon={<PriorityHighIcon fontSize="inherit" />}
+                        size="large"
+                        value={character.budget_importance ? character.budget_importance : 2}
+                        readOnly
+                      />
+                    </>
+                  )}
+                  {character.neighborhoods && (
+                    <>
+                      <p>Neighborhoods: {character.neighborhoods.join(", ")}</p>
+                      <StyledRating
+                        name="simple-controlled"
+                        icon={<PriorityHighIcon fontSize="inherit" />}
+                        defaultValue={2}
+                        getLabelText={(value) =>
+                          `${value} Heart${value !== 1 ? "s" : ""}`
+                        }
+                        emptyIcon={<PriorityHighIcon fontSize="inherit" />}
+                        size="large"
+                        value={character.neighborhoods_importance ? character.neighborhoods_importance : 2}
+                        readOnly
+                      />
+                    </>
+                  )}
                   <h4>Apartment Must Haves:</h4>
                   <Chip label="Laundry in-unit" variant="outlined" />
                   <Chip label="Doorman" variant="outlined" />
@@ -307,7 +324,7 @@ function MatchesPage() {
                   >
                     <Box display="flex" margin="3px">
                       <Avatar>H</Avatar>
-                      <Typography sx={{ p: 2 }}>Dineshi Chugtai</Typography>
+                      <Typography sx={{ p: 2 }}>{character.name}</Typography>
                     </Box>
                   </Popover>
                 </div>

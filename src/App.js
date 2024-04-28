@@ -12,7 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignupPage />} />
-          <Route path="matches" element={<MatchesPage />} />
+          <Route path="matches/:profileId" element={<MatchesPage />} />
           <Route path="prev" element={<PreviousMatchesPage />} />
         </Routes>
       </BrowserRouter>

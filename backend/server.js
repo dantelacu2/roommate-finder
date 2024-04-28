@@ -26,6 +26,12 @@ app.post('/generate-matches', async (req, res) => {
     res.json({ status: 200, updatedDoc: updatedDocument })
 });
 
+app.post('/get-matches', async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    const doc = await getDocumentById(req.body);
+    res.json({ status: 200, doc, });
+});
+
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });

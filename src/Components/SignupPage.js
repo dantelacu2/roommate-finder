@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 import MustHaves from "./MustHaves";
 import ReorderableList from "./ReorderableList";
 import { createProfile, createMatches } from "../Axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import { MuiTelInput } from "mui-tel-input";
 import { styled } from "@mui/material/styles";
@@ -19,13 +19,16 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 function SignupPage() {
   const [formAnswers, setFormAnswers] = React.useState({});
   const [phone, setPhone] = React.useState("");
+  const navigate = useNavigate();
 
   const updateAnswers = (label, value) => {
     setFormAnswers({ ...formAnswers, [label]: value });
   };
   const submitAnswers = () => {
     createProfile(formAnswers).then((doc) => {
-      createMatches(doc?.insertedDoc?.insertedId?.toString());
+      createMatches(doc?.insertedDoc?.insertedId?.toString()).then((_) => {
+        navigate(`/matches/${doc?.insertedDoc?.insertedId?.toString()}`);
+      });
     });
   };
 
@@ -294,9 +297,9 @@ function SignupPage() {
             <TextField
               id="outlined-basic"
               onChange={(e) =>
-                updateAnswers("budget_range", e.currentTarget.value)
+                updateAnswers("budget", e.currentTarget.value)
               }
-              label="Budget Range"
+              label="Budget"
               variant="outlined"
               InputLabelProps={{ shrink: true }}
             />
@@ -311,9 +314,9 @@ function SignupPage() {
                 }
                 emptyIcon={<PriorityHighIcon fontSize="inherit" />}
                 size="large"
-                value={formAnswers['budget_range_importance']}
+                value={formAnswers['budget_importance']}
                 onChange={(event) => {
-                  updateAnswers("budget_range_importance", parseInt(event.target.value))
+                  updateAnswers("budget_importance", parseInt(event.target.value))
                 }}
               />
               <p>Very Important</p>
@@ -374,7 +377,7 @@ function SignupPage() {
             <h2>Roommate Preferences</h2>
           </Stack>
         </Box>
-        <ReorderableList />
+        <ReorderableList updateAnswers={updateAnswers} />
         <h2>Other Important Notes</h2>
         <TextField
           id="outlined-multiline-static"
@@ -389,15 +392,7 @@ function SignupPage() {
             variant="contained"
             style={{ marginTop: "10px" }}
           >
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "white",
-              }}
-              to="/matches"
-            >
-              Submit
-            </Link>
+            Submit
           </Button>
         </Box>
       </Paper>
