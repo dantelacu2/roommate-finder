@@ -35,7 +35,7 @@ function MustHaves(props) {
   const [mustHaves, setMustHaves] = React.useState([]);
   //Update tags at the signup form state level
   React.useEffect(() => {
-    props.updateAnswers("tags", mustHaves);
+    props.updateAnswers("must_haves", mustHaves);
   }, [mustHaves]);
 
   const handleChange = (event) => {
@@ -58,7 +58,7 @@ function MustHaves(props) {
         </p>
       </Box>
       <div>
-        <FormControl sx={{ m: 1, width: 300 }}>
+        <FormControl sx={{ m: 4, width: 300 }}>
           <InputLabel id="demo-multiple-checkbox-label">Must Haves</InputLabel>
           <Select
             labelId="demo-multiple-checkbox-label"

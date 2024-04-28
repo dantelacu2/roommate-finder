@@ -6,7 +6,7 @@ const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWOR
 const dbName = 'roommate-matching';
 const collectionName = 'profiles';
 
-async function findAllMatches(baseProfile) {
+async function findAllOtherProfiles(baseProfile) {
     const client = new MongoClient(uri);
     try {
         const database = client.db(dbName);
@@ -33,7 +33,7 @@ async function findAllMatches(baseProfile) {
         for await (const doc of cursor) {
             docs.push(doc);
         }
-        return docs.map(document => document._id);
+        return docs;
 
     } catch (error) {
         console.error('Error occurred: ', error);
@@ -104,4 +104,4 @@ async function insertDocument(docInput) {
     }
 }
 
-module.exports = { insertDocument, getDocumentById, findAllMatches, insertMatchesIntoProfile };
+module.exports = { insertDocument, getDocumentById, findAllOtherProfiles, insertMatchesIntoProfile };

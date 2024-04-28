@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 
-const { insertDocument, getDocumentById, findAllMatches, insertMatchesIntoProfile } = require('./MongoClient');
+const { findNearestMatches } = require('./utils/matches');
+const { insertDocument, getDocumentById, findAllOtherProfiles, insertMatchesIntoProfile } = require('./MongoClient');
 
 const app = express();
 
@@ -19,7 +20,8 @@ app.post('/create-profile', async (req, res) => {
 app.post('/generate-matches', async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     const profile = await getDocumentById(req.body.id);
-    const allGeneratedMatches = await findAllMatches(profile);
+    const allProfiles = await findAllOtherProfiles(profile);
+    const allGeneratedMatches = findNearestMatches(profile, allProfiles);
     const updatedDocument = await insertMatchesIntoProfile(profile._id, allGeneratedMatches);
     res.json({ status: 200, updatedDoc: updatedDocument })
 });
