@@ -17,6 +17,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 function SignupPage() {
+  // Here is where we are handling the state for all the user inputs to create a profile
   const [formAnswers, setFormAnswers] = React.useState({});
   const [phone, setPhone] = React.useState("");
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function SignupPage() {
   const updateAnswers = (label, value) => {
     setFormAnswers({ ...formAnswers, [label]: value });
   };
+
   const submitAnswers = () => {
     createProfile(formAnswers).then((doc) => {
       createMatches(doc?.insertedDoc?.insertedId?.toString()).then((_) => {
@@ -51,11 +53,9 @@ function SignupPage() {
 
   const StyledRating = styled(Rating)({
     "& .MuiRating-iconFilled": {
-      // color: "#FFFF00",
       color: "#ff6d75",
     },
     "& .MuiRating-iconHover": {
-      // color: "#FFFF00",
       color: "#ff3d47",
     },
   });
@@ -69,13 +69,11 @@ function SignupPage() {
       alignItems="center"
       sx={{
         "& > :not(style)": {
-          // m: 1,
           width: "75%",
           height: "min-content",
           marginTop: "50px",
           marginBottom: "50px",
           padding: "20px",
-          // backgroundColor: "#D397F8",
           backgroundColor: "#ADD8E6",
         },
       }}
@@ -91,6 +89,7 @@ function SignupPage() {
           noValidate
           autoComplete="off"
         >
+          {/* Instantiation of the Attributes Concept */}
           <h2>Personal Information</h2>
           <TextField
             onChange={(e) => updateAnswers("name", e.currentTarget.value)}
@@ -183,6 +182,7 @@ function SignupPage() {
           Upload Photo
           <VisuallyHiddenInput type="file" />
         </Button>
+        {/* Instantiation of the Preferences Concept */}
         <h2>Rooming Preferences</h2>
         <p style={{ fontWeight: "bold" }}>
           In this section respond to each question and indicate how important
@@ -243,6 +243,7 @@ function SignupPage() {
               InputLabelProps={{ shrink: true }}
               sx={{ width: "25ch" }}
             />
+            {/* Here is the code creating our rating system for user preferences */}
             <Box display={"flex"}>
               <p>Not Important</p>
               <StyledRating

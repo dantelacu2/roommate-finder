@@ -8,6 +8,9 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+// This component builds the Roommate Preferences Component on our SignupPage
+// It allows users to select preferences from a dropdown, add them to their list of preferences, and order them based on importance
+// This is an instantiation of our Preferences Concept
 function ReorderableList(props) {
   const [items, setItems] = useState([]);
   const [item, setItem] = useState("");

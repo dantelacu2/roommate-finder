@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import ProfileCard from "./ProfileCard";
 import PrevProfile from "./PrevProfile";
 
+// This file creates our "Previous Matches" page
+// It is another instantiation of our Matches concept as it allows users to view their mutual matches
+
 let previousMatches = [
   {
     name: "Daniel Jackson",
@@ -85,7 +88,6 @@ function PreviousMatchesPage() {
           marginTop: "50px",
           marginBottom: "50px",
           padding: "20px",
-          // backgroundColor: "#D397F8",
           backgroundColor: "#ADD8E6",
         },
       }}

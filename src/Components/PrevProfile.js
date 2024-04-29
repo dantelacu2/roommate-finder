@@ -1,9 +1,7 @@
-import React, { useState, useMemo, useRef, useEffect } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import ".././App.css";
-import TinderCard from "react-tinder-card";
 import Paper from "@mui/material/Paper";
-import { Link, useParams } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import Popover from "@mui/material/Popover";
 import { Button } from "@mui/material";
@@ -19,13 +17,14 @@ import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import { styled } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 
+// This file creates the component that showcases the full profile of a previous match
+// It is used inside the Previous Matches profile and is part of the instantiation of the matches concept
+
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
-    // color: "#FFFF00",
     color: "#ff6d75",
   },
   "& .MuiRating-iconHover": {
-    // color: "#FFFF00",
     color: "#ff3d47",
   },
 });
@@ -177,11 +176,7 @@ function PrevProfile(...props) {
               </TableBody>
             </Table>
           </TableContainer>
-          <Button
-            // color="secondary"
-            variant="outlined"
-            onClick={handleClick}
-          >
+          <Button variant="outlined" onClick={handleClick}>
             Show Personal Information
           </Button>
           <Popover

@@ -10,6 +10,10 @@ import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import Chip from "@mui/material/Chip";
 
+// This file builds the Apartment Must Haves Component that sits inside the SignupPage
+// It is an instantiation of our Preferences Concept
+// It allows a user to select multiple preferencs and a tag will appear in the input box
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {

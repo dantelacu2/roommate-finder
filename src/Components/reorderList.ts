@@ -1,3 +1,5 @@
+// This file is where we create our functions that allow users to reorder the list of their roommate preferences
+
 const _reorderForward = <T>(l: T[], start: number, end: number) => {
   const temp = l[start];
 

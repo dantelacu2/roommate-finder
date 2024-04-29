@@ -3,11 +3,9 @@ import Box from "@mui/material/Box";
 import ".././App.css";
 import TinderCard from "react-tinder-card";
 import Paper from "@mui/material/Paper";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getMatches } from "../Axios";
 import Chip from "@mui/material/Chip";
-import Popover from "@mui/material/Popover";
-import Dialog from "@mui/material/Dialog";
 import Card from "@mui/material/Card";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -21,6 +19,10 @@ import Rating from "@mui/material/Rating";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import { styled } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
+
+// This file is our "View Potential Matches" Page
+// It is part of our instantiation of the Matches Concept
+// On the page we showcase a series of profile cards and users can swipe left or right on the cards
 
 const db = [
   {
@@ -46,11 +48,9 @@ const db = [
 ];
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
-    // color: "#FFFF00",
     color: "#ff6d75",
   },
   "& .MuiRating-iconHover": {
-    // color: "#FFFF00",
     color: "#ff3d47",
   },
 });
@@ -58,6 +58,8 @@ const StyledRating = styled(Rating)({
 function MatchesPage() {
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [matches, setMatches] = useState([]);
+  // Here is where we are passing the global state of which user is logged in
+  // We use a profile ID so that we can reference this user in our Mongo database
   const { profileId } = useParams();
 
   useEffect(() => {
@@ -68,17 +70,12 @@ function MatchesPage() {
     });
   }, [profileId]);
 
-  // const [lastDirection, setLastDirection] = useState();
-  // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex);
   const [showPersonal, setShowPersonal] = React.useState(false);
 
   const handleClick = () => {
     setShowPersonal(!showPersonal);
   };
-
-  // const open = Boolean(anchorEl);
-  // const id = open ? "simple-popover" : undefined;
 
   const childRefs = useMemo(
     () =>
@@ -88,6 +85,8 @@ function MatchesPage() {
     []
   );
 
+  // The functions below allow us to create a Tinder-like swipe on our profile cards
+  // This is a benefit of using React as we were able to build these functions from the React Tinder Cards library
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
@@ -140,14 +139,10 @@ function MatchesPage() {
         alignItems="center"
         sx={{
           "& > :not(style)": {
-            // m: 1,
             width: "75%",
-            // height: "min-content",
             marginTop: "50px",
             marginBottom: "50px",
             padding: "20px",
-            // paddingBottom: "50px",
-            // backgroundColor: "#D397F8",
             backgroundColor: "#ADD8E6",
           },
         }}
@@ -349,16 +344,6 @@ function MatchesPage() {
                       >
                         {!showPersonal ? "Show" : "Hide"} Personal Information
                       </Button>
-                      {/* <Popover
-                        id={id}
-                        open={open}
-                        anchorEl={anchorEl}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                          vertical: "bottom",
-                          horizontal: "left",
-                        }}
-                      > */}
                       {showPersonal ? (
                         <Box
                           display="flex"
@@ -399,7 +384,6 @@ function MatchesPage() {
                                 </Typography>
                               </Box>
                             </Box>
-                            {/* </Popover> */}
                           </Card>
                         </Box>
                       ) : (
