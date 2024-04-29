@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 import MustHaves from "./MustHaves";
 import ReorderableList from "./ReorderableList";
 import { createProfile, createMatches } from "../Axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import { MuiTelInput } from "mui-tel-input";
 import { styled } from "@mui/material/styles";
@@ -60,8 +60,7 @@ function SignupPage() {
     },
   });
 
-  const neighborhoodTooltipText =
-    "If you have a few neighborhoods in mind that you would like to live in type them here. You can add as many neighborhoods as you like.";
+  const neighborhoodTooltipText = "Select as many neighborhoods as you like!";
 
   return (
     <Box
@@ -100,7 +99,9 @@ function SignupPage() {
             variant="outlined"
           />
           <TextField
-            onChange={(e) => updateAnswers("age", parseInt(e.currentTarget.value))}
+            onChange={(e) =>
+              updateAnswers("age", parseInt(e.currentTarget.value))
+            }
             id="outlined-basic"
             label="Age"
             variant="outlined"
@@ -112,19 +113,17 @@ function SignupPage() {
               sx={{ minWidth: 150 }}
               labelId="gender-select"
               id="g-select"
-              value={formAnswers['gender']}
+              value={formAnswers["gender"]}
               label="gender"
               onChange={(e) => updateAnswers("gender", e.target.value)}
             >
-              {['Male', 'Female', 'Non-Binary'].map(((name) => {
-                return <MenuItem value={name}>{name}</MenuItem>
-              }))}
+              {["Male", "Female", "Non-Binary"].map((name) => {
+                return <MenuItem value={name}>{name}</MenuItem>;
+              })}
             </Select>
           </FormControl>
           <TextField
-            onChange={(e) =>
-              updateAnswers("university", e.currentTarget.value)
-            }
+            onChange={(e) => updateAnswers("university", e.currentTarget.value)}
             id="outlined-basic"
             label="University"
             variant="outlined"
@@ -154,9 +153,7 @@ function SignupPage() {
             defaultCountry="US"
           />
           <TextField
-            onChange={(e) =>
-              updateAnswers("instagram", e.currentTarget.value)
-            }
+            onChange={(e) => updateAnswers("instagram", e.currentTarget.value)}
             id="outlined-basic"
             label="Instagram"
             variant="outlined"
@@ -166,14 +163,14 @@ function SignupPage() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={formAnswers['city']}
+              value={formAnswers["city"]}
               sx={{ minWidth: 150 }}
               label="City"
               onChange={(e) => updateAnswers("city", e.target.value)}
             >
-              {['NYC', 'SF', 'Boston', 'Chicago', 'Austin'].map(((name) => {
-                return <MenuItem value={name}>{name}</MenuItem>
-              }))}
+              {["NYC", "SF", "Boston", "Chicago", "Austin"].map((name) => {
+                return <MenuItem value={name}>{name}</MenuItem>;
+              })}
             </Select>
           </FormControl>
         </Box>
@@ -189,14 +186,20 @@ function SignupPage() {
         <h2>Rooming Preferences</h2>
         <p style={{ fontWeight: "bold" }}>
           In this section respond to each question and indicate how important
-          this choice is to you when selecting an apartment.
+          this choice is to you when selecting an apartment using the
+          correspondng rating scale on the right. The current ratings are
+          default ratings and should be changed.
         </p>
         <Box marginRight={"100px"} marginLeft="75px">
           <Box display="flex" justifyContent={"space-between"}>
             <TextField
+              sx={{ width: "25ch" }}
               id="outlined-basic"
               onChange={(e) =>
-                updateAnswers("move_in_date", new Date(e.currentTarget.value).valueOf())
+                updateAnswers(
+                  "move_in_date",
+                  new Date(e.currentTarget.value).valueOf()
+                )
               }
               label="Move-in Date"
               variant="outlined"
@@ -214,9 +217,12 @@ function SignupPage() {
                 }
                 emptyIcon={<PriorityHighIcon fontSize="inherit" />}
                 size="large"
-                value={formAnswers['move_in_date_importance']}
+                value={formAnswers["move_in_date_importance"]}
                 onChange={(event) => {
-                  updateAnswers("move_in_date_importance", parseInt(event.target.value))
+                  updateAnswers(
+                    "move_in_date_importance",
+                    parseInt(event.target.value)
+                  );
                 }}
               />
               <p>Very Important</p>
@@ -232,9 +238,10 @@ function SignupPage() {
               onChange={(e) =>
                 updateAnswers("lease_length", e.currentTarget.value)
               }
-              label="Lease Length"
+              label="Lease Length (in years)"
               variant="outlined"
               InputLabelProps={{ shrink: true }}
+              sx={{ width: "25ch" }}
             />
             <Box display={"flex"}>
               <p>Not Important</p>
@@ -247,9 +254,12 @@ function SignupPage() {
                 }
                 emptyIcon={<PriorityHighIcon fontSize="inherit" />}
                 size="large"
-                value={formAnswers['lease_length_importance']}
+                value={formAnswers["lease_length_importance"]}
                 onChange={(event) => {
-                  updateAnswers("lease_length_importance", parseInt(event.target.value))
+                  updateAnswers(
+                    "lease_length_importance",
+                    parseInt(event.target.value)
+                  );
                 }}
               />
               <p>Very Important</p>
@@ -265,10 +275,11 @@ function SignupPage() {
               onChange={(e) =>
                 updateAnswers("num_roommates", e.currentTarget.value)
               }
-              label="Ideal # of Roommates"
+              label="Ideal # of Roommates (including you)"
               variant="outlined"
               InputLabelProps={{ shrink: true }}
               type="number"
+              sx={{ width: "25ch" }}
             />
             <Box display={"flex"}>
               <p>Not Important</p>
@@ -281,9 +292,12 @@ function SignupPage() {
                 }
                 emptyIcon={<PriorityHighIcon fontSize="inherit" />}
                 size="large"
-                value={formAnswers['num_roommates_importance']}
+                value={formAnswers["num_roommates_importance"]}
                 onChange={(event) => {
-                  updateAnswers("num_roommates_importance", parseInt(event.target.value))
+                  updateAnswers(
+                    "num_roommates_importance",
+                    parseInt(event.target.value)
+                  );
                 }}
               />
               <p>Very Important</p>
@@ -296,12 +310,11 @@ function SignupPage() {
           >
             <TextField
               id="outlined-basic"
-              onChange={(e) =>
-                updateAnswers("budget", e.currentTarget.value)
-              }
-              label="Budget"
+              onChange={(e) => updateAnswers("budget", e.currentTarget.value)}
+              label="Budget Range (per-person, monthly)"
               variant="outlined"
               InputLabelProps={{ shrink: true }}
+              sx={{ width: "25ch" }}
             />
             <Box display={"flex"}>
               <p>Not Important</p>
@@ -314,9 +327,12 @@ function SignupPage() {
                 }
                 emptyIcon={<PriorityHighIcon fontSize="inherit" />}
                 size="large"
-                value={formAnswers['budget_importance']}
+                value={formAnswers["budget_importance"]}
                 onChange={(event) => {
-                  updateAnswers("budget_importance", parseInt(event.target.value))
+                  updateAnswers(
+                    "budget_importance",
+                    parseInt(event.target.value)
+                  );
                 }}
               />
               <p>Very Important</p>
@@ -331,17 +347,30 @@ function SignupPage() {
               <FormControl sx={{ marginTop: 1 }}>
                 <InputLabel id="neighborhoods-label">Neighborhoods</InputLabel>
                 <Select
-                  sx={{ minWidth: 200 }}
+                  sx={{ minWidth: 200, width: "25ch" }}
                   labelId="neighborhoods-select"
                   id="n-select"
                   multiple
-                  value={Array.isArray(formAnswers['neighborhoods']) ? formAnswers['neighborhoods'] : []}
+                  value={
+                    Array.isArray(formAnswers["neighborhoods"])
+                      ? formAnswers["neighborhoods"]
+                      : []
+                  }
                   label="neighborhoods"
-                  onChange={(e) => updateAnswers("neighborhoods", e.target.value)}
+                  onChange={(e) =>
+                    updateAnswers("neighborhoods", e.target.value)
+                  }
                 >
-                  {['West Side', 'East Side', 'Uptown', 'Downtown', 'Brookyln', 'Jersey City'].map(((name) => {
-                    return <MenuItem value={name}>{name}</MenuItem>
-                  }))}
+                  {[
+                    "West Side",
+                    "East Side",
+                    "Uptown",
+                    "Downtown",
+                    "Brookyln",
+                    "Jersey City",
+                  ].map((name) => {
+                    return <MenuItem value={name}>{name}</MenuItem>;
+                  })}
                 </Select>
               </FormControl>
               <Tooltip title={neighborhoodTooltipText}>
@@ -361,9 +390,12 @@ function SignupPage() {
                 }
                 emptyIcon={<PriorityHighIcon fontSize="inherit" />}
                 size="large"
-                value={formAnswers['neighborhoods_importance']}
+                value={formAnswers["neighborhoods_importance"]}
                 onChange={(event) => {
-                  updateAnswers("neighborhoods_importance", parseInt(event.target.value))
+                  updateAnswers(
+                    "neighborhoods_importance",
+                    parseInt(event.target.value)
+                  );
                 }}
               />
               <p>Very Important</p>

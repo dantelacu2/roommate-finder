@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { Avatar, Button } from "@mui/material";
 
-function ProfileCard() {
+function ProfileCard({ ...props }) {
   return (
     <Card variant="outlined" sx={{ mx: 8 }}>
       <Box sx={{ p: 2 }}>
@@ -16,18 +16,22 @@ function ProfileCard() {
           alignItems="center"
         >
           <Typography gutterBottom variant="h5" component="div">
-            Kara Siegel
+            {props.match.name}
           </Typography>
-          <Avatar>H</Avatar>
+          <Avatar>{props.match.name.charAt(0)}</Avatar>
         </Stack>
-        {/* <Typography color="text.secondary" variant="body2">
-              Description of Kara
-            </Typography> */}
       </Box>
       <Divider />
       <Box>
-        <p>Instagram: ksiegel</p>
-        <p>Phone number:</p>
+        <p>
+          <strong>Instagram:</strong> @{props.match.instagram}
+        </p>
+        <p>
+          <strong>Phone number:</strong> {props.match.phone}
+        </p>
+        <p>
+          <strong>Email:</strong> {props.match.email}
+        </p>
       </Box>
       <Box sx={{ m: 2 }}>
         <Button
@@ -35,6 +39,8 @@ function ProfileCard() {
           fullWith
           color="primary"
           sx={{ backgroundColor: "#1976d2", color: "white", m: 1 }}
+          onClick={props.onViewProfile}
+          name={props.match.name}
         >
           View Full Profile
         </Button>

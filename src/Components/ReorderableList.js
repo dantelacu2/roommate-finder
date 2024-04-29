@@ -64,18 +64,13 @@ function ReorderableList(props) {
   return (
     <Box>
       <p style={{ fontWeight: "bold" }}>
-        Choose your roommate preferences from the dropdown and add them to your
-        list of preferences. Drag and drop the elements in the list to reorder
-        based on preference.
+        Choose your roommate preferences from the dropdown. You should select as
+        many as you would like but add them each individually. After you have
+        chosen your preferences, you may reorder the list (by dragging the
+        elements to the desired spot) based on preference.
       </p>
       <Box display="flex" justifyContent={"space-evenly"} alignItems={"center"}>
         <Box display="flex">
-          {/* <TextField
-          id="outlined-basic"
-          label="Roommate Preference"
-          variant="outlined"
-          onChange={(e) => setItem(e.target.value)}
-        /> */}
           <FormControl sx={{ m: 1, minWidth: 220 }}>
             <InputLabel id="demo-simple-select-label">
               Roommate Preference
@@ -91,7 +86,9 @@ function ReorderableList(props) {
               <MenuItem value={"night-owl"}>Night Owl</MenuItem>
               <MenuItem value={"early-riser"}>Early Riser</MenuItem>
               <MenuItem value={"no-parties"}>No Parties</MenuItem>
-              <MenuItem value={"willing-to-host-parties"}>Willing to host parties</MenuItem>
+              <MenuItem value={"willing-to-host-parties"}>
+                Willing to host parties
+              </MenuItem>
             </Select>
           </FormControl>
           <Button variant="contained" onClick={handleAddition}>
